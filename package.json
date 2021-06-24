@@ -1,0 +1,26 @@
+{
+  "name": "moviebuff-nodejs",
+  "version": "1.0.0",
+  "description": "search UI for movies\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[C\u001b[S\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BabyLizzy-FunTime-Lab/MovieBuff-Node.js.git"
+  },
+  "keywords": [
+    "search",
+    "movies"
+  ],
+  "author": "José Luis Rasmussen Garcia",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/BabyLizzy-FunTime-Lab/MovieBuff-Node.js/issues"
+  },
+  "homepage": "https://github.com/BabyLizzy-FunTime-Lab/MovieBuff-Node.js#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
