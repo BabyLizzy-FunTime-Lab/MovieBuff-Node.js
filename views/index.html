@@ -19,10 +19,12 @@
 				<a href="http://localhost:3000/"><h1>Movie Buff</h1></a>
 			</div>
 			<nav class="header__nav pc--nav">
-				<div id="searchbar--container">
-					<input type="text" id="search_input" placeholder="Movie Name">
+				<form id="searchbar--container">
+					<label class="nav_label" for=search_input>Search Input</label>
+					<input type="text" id="search_input" name="search_input" placeholder="Movie Name">
+					<label class="nav_label" for="search_btn">Search Button</label>
 					<input type="button" id="search_btn" name="search_btn" value="Search">
-				</div>			
+				</form>			
 			</nav>
 		</div>
 	</header>

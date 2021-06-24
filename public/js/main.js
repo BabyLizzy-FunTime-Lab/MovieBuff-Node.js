@@ -24,10 +24,10 @@ function createURL(search_input, string_or_ID) {
 	let url;
 	switch(string_or_ID) {
 		case "string": 
-			url = "http://www.omdbapi.com/?s=" + search_input + "&apiKey=6c3a2d45";
+			url = "http://www.omdbapi.com/?apiKey=6c3a2d45&plot=full&s=" + search_input;
 			break;
 		case "ID": 
-			url = "http://www.omdbapi.com/?i=" + search_input + "&apiKey=6c3a2d45";
+			url = "http://www.omdbapi.com/?apiKey=6c3a2d45&plot=full&i=" + search_input;
 			break;
 		default:
 			console.log("Failed to create URL");
@@ -432,4 +432,3 @@ elementID("search_btn").addEventListener("click", function() {
 	let requestURL = createURL(elementValue("search_input"), "string");
 	run_getRequest(requestURL);
 })
-
