@@ -24,7 +24,7 @@ function createURL(search_input, string_or_ID) {
 	let url;
 	switch(string_or_ID) {
 		case "string": 
-			url = "http://www.omdbapi.com/?apiKey=6c3a2d45&plot=full&s=" + search_input;
+			url = "http://www.omdbapi.com/?apiKey=6c3a2d45&plot=full&type=movie&s=" + search_input;
 			break;
 		case "ID": 
 			url = "http://www.omdbapi.com/?apiKey=6c3a2d45&plot=full&i=" + search_input;
@@ -40,11 +40,22 @@ function top5_URL_array(res) {
 		case "True":
 			// GET top 5 movie ID's and make new URL's with movie ID's.
 			let array_ID_URL = [];
-			for (var i = 0; i < 5; i++) {
-				let imdbID_ID = response_obj.Search[i].imdbID;
-				let IDsearch_URL = createURL(imdbID_ID, "ID");
-				array_ID_URL.push(IDsearch_URL);
+			let response_length = response_obj.Search.length;
+			// console.log("res length: " + response_obj.Search.length);
+			if ( response_length > 5) {
+				for (var i = 0; i < 5; i++) {
+					let imdbID_ID = response_obj.Search[i].imdbID;
+					let IDsearch_URL = createURL(imdbID_ID, "ID");
+					array_ID_URL.push(IDsearch_URL);
+				}
+			} else {
+				for (var i = 0; i < response_length; i++) {
+					let imdbID_ID = response_obj.Search[i].imdbID;
+					let IDsearch_URL = createURL(imdbID_ID, "ID");
+					array_ID_URL.push(IDsearch_URL);
+				}
 			}
+			console.log(array_ID_URL);
 			return array_ID_URL;
 			break;
 		case "False":
@@ -291,6 +302,7 @@ function run_getRequest(requestURL) {
 			// console.log(values);
 			let ID_URLarray = top5_URL_array(values);
 			Promise.all([
+				// loop ID_URLarray, here the code crashes when ID_urlarray < 5.
 				getRequest_Promise(ID_URLarray[0]),
 				getRequest_Promise(ID_URLarray[1]),
 				getRequest_Promise(ID_URLarray[2]),
