@@ -301,25 +301,24 @@ function run_getRequest(requestURL) {
 		function(values) {
 			// console.log(values);
 			let ID_URLarray = top5_URL_array(values);
-			Promise.all([
-				// loop ID_URLarray, here the code crashes when ID_urlarray < 5.
-				getRequest_Promise(ID_URLarray[0]),
-				getRequest_Promise(ID_URLarray[1]),
-				getRequest_Promise(ID_URLarray[2]),
-				getRequest_Promise(ID_URLarray[3]),
-				getRequest_Promise(ID_URLarray[4]),
-			]).then(
+			Promise.all(
+				// Make get request for every ID URL.
+				ID_URLarray.map( function(ID_URL) { 
+					return getRequest_Promise(ID_URL);
+				})
+			).then(
 				function(values) {
-					let movie1 = JSON.parse(values[0]);
-					let movie2 = JSON.parse(values[1]);
-					let movie3 = JSON.parse(values[2]);
-					let movie4 = JSON.parse(values[3]);
-					let movie5 = JSON.parse(values[4]);
-					let movie_data = new Array(
-						movie1, movie2, movie3, 
-						movie4, movie5);
-					// console.log(movie_data);
-					return movie_data;
+					// console.log(values);
+					let movie_data_array = new Array();
+
+					function parseData(data) {
+						let movieData = JSON.parse(data);
+						movie_data_array.push(movieData);
+					}
+
+					values.forEach(parseData);
+					console.log("request worked" + movie_data_array);
+					return movie_data_array;
 				}
 			).then(
 				function(values) {
