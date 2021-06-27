@@ -376,4 +376,11 @@ window.onload = featuredMovies("tt1343727", "tt0103064");
 elementID("search_btn").addEventListener("click", function() {
 	let requestURL = createURL(elementValue("search_input"), "string");
 	run_getRequest(requestURL);
-})
+});
+// broken
+elementID("search_input").addEventListener("keyup", function(event) {
+	if (event.keyCode === 13) {
+		let requestURL = createURL(elementValue("search_input"), "string");
+		run_getRequest(requestURL);
+	}
+});
