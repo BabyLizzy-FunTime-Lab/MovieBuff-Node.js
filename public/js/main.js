@@ -18,7 +18,9 @@ function elementMaker(tagname, ID_optional, class_optional) {
 		return newElement;
 	}
 }
-
+function errorHandeler(error) {
+	// body...
+}
 // Get request functions and URL constructors
 function createURL(search_input, string_or_ID) {
 	let url;
@@ -41,7 +43,6 @@ function top5_URL_array(res) {
 			// GET top 5 movie ID's and make new URL's with movie ID's.
 			let array_ID_URL = [];
 			let response_length = response_obj.Search.length;
-			// console.log("res length: " + response_obj.Search.length);
 			if ( response_length > 5) {
 				for (var i = 0; i < 5; i++) {
 					let imdbID_ID = response_obj.Search[i].imdbID;
@@ -55,7 +56,6 @@ function top5_URL_array(res) {
 					array_ID_URL.push(IDsearch_URL);
 				}
 			}
-			console.log(array_ID_URL);
 			return array_ID_URL;
 			break;
 		case "False":
@@ -144,7 +144,6 @@ function availability_check(movie_data, poster) {
 }
 
 function render_search(topresults_array) {
-	console.log(topresults_array);
 	// Create container-objectarrays and element-objectarrays
 	let target_container = elementID("searchresults");
 	let movie_containers = new Array();
@@ -227,7 +226,6 @@ function render_search(topresults_array) {
 	})
 }
 
-
 function run_getRequest(requestURL) {
 	getRequest_Promise(requestURL).then(
 		function(values) {
@@ -249,12 +247,10 @@ function run_getRequest(requestURL) {
 					}
 
 					values.forEach(parseData);
-					console.log("request worked" + movie_data_array);
 					return movie_data_array;
 				}
 			).then(
 				function(values) {
-					console.log(values);
 					// ready elements for rendering.
 					elementID("banner").style.display = "none";
 					elementID("featuredmovies").style.display = "none";
@@ -298,55 +294,43 @@ function render_featuredMovies_Data(movie_array) {
 	movie_array.forEach(function(movie, index) {
 		movie_containers.push(elementMaker("section", false, "movie_container"));
 		movie_elements.push(generate_featuredMovies_elements());
-	});
+		let info_container = movie_elements[index][5];
 
-	// for (var i = 0; i < movie_elements.length; i++) {
-	// 	switch(i) {
-	// 		case 0:
-	// 		// Posters
-	// 			movie1_elements[i].src = movie_1.Poster;
-	// 			movie1_elements[i].alt = "Poster of " + movie_1.Title;
-	// 			movie1_container.appendChild(movie1_elements[0]);
-	// 			movie2_elements[i].src = movie_2.Poster;
-	// 			movie2_elements[i].alt = "Poster of " + movie_2.Title;
-	// 			movie2_container.appendChild(movie2_elements[0]);
-	// 			break;
-	// 		case 1:
-	// 		// Title <h3> into info_container
-	// 			movie1_elements[i].innerHTML = "Title: " + movie_1.Title;
-	// 			movie1_info_container.appendChild(movie1_elements[i]);
-	// 			movie2_elements[i].innerHTML = "Title:" + movie_2.Title;
-	// 			movie2_info_container.appendChild(movie2_elements[i]);
-	// 			break;
-	// 		case 2:
-	// 		// Year <h4> into info_container
-	// 			movie1_elements[i].innerHTML = "Release year: " + movie_1.Year;
-	// 			movie1_info_container.appendChild(movie1_elements[i]);
-	// 			movie2_elements[i].innerHTML = "Release year: " + movie_2.Year;
-	// 			movie2_info_container.appendChild(movie2_elements[i]);
-	// 			break;
-	// 		case 3:
-	// 		// Awards into info_container
-	// 			movie1_elements[i].innerHTML = "<h4>Awards:</h4>" + "<p>" + movie_1.Awards + "</p>";
-	// 			movie1_info_container.appendChild(movie1_elements[i]);
-	// 			movie2_elements[i].innerHTML = "<h4>Awards:</h4>" + "<p>" + movie_2.Awards + "</p>";
-	// 			movie2_info_container.appendChild(movie2_elements[i]);
-	// 			break;
-	// 		case 4:
-	// 		// Plot into info_container
-	// 			movie1_elements[i].innerHTML = "<h4>Plot:</h4>" + "<p>" + movie_1.Plot + "</p>";
-	// 			movie1_info_container.appendChild(movie1_elements[i]);
-	// 			movie2_elements[i].innerHTML = "<h4>Plot:</h4>" + "<p>" + movie_2.Plot + "</p>";
-	// 			movie2_info_container.appendChild(movie2_elements[i]);
-	// 			break;
-	// 		default:
-	// 			console.log("Rendering Featured Movies, done");
-	// 	}
-	// }
-	// movie1_container.appendChild(movie1_info_container);
-	// movie2_container.appendChild(movie2_info_container);
-	// target_container.appendChild(movie1_container);
-	// target_container.appendChild(movie2_container);
+		movie_elements[index].forEach( function(element, elementindex) {
+			switch(elementindex) {
+				case 0:
+				// Poster
+					element.src = movie.Poster;
+					element.alt = "Poster of " + movie.Title;
+					movie_containers[index].appendChild(element);
+					break;
+				case 1:
+				// Title
+					element.innerHTML = "Title: " + movie.Title;
+					info_container.appendChild(element);
+					break;
+				case 2:
+				// Year
+					element.innerHTML = "Release year: " + movie.Year;
+					info_container.appendChild(element);
+					break;
+				case 3:
+				// Awards
+					element.innerHTML = "<h4>Awards:</h4>" + "<p>" + movie.Awards + "</p>";
+					info_container.appendChild(element);
+					break;
+				case 4:
+				// Plot
+					element.innerHTML = "<h4>Plot:</h4> " + "<p>" + movie.Plot + "</p>";
+					info_container.appendChild(element);
+					break;
+				case 5:
+				// Elements into containers
+					movie_containers[index].appendChild(info_container);
+					target_container.appendChild(movie_containers[index]);
+			}
+		})
+	});
 }
 function featuredMovies(movie1_ID, movie2_ID) {
 	let search_URL_1 = createURL(movie1_ID, "ID");

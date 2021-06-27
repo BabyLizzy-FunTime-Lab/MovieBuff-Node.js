@@ -2,6 +2,7 @@
 	/*Colors*/
 	--color-black: rgb(0, 0, 0);
 	--color-grey: rgb(60, 60, 60);
+	--color-dimgrey: rgba(60, 60, 60, .8);
 	--color-whitesmoke: rgb(245,245,245);
 	/*Decoration images*/
 	--image-banner: url(../images/banner3.png) ;
@@ -60,8 +61,20 @@ p {
 	margin: 0;
 	padding: 0 0 .5em 0;
 }
-.nav_label {
+label {
 	display: none;
+}
+#error-container {
+	position: fixed;
+	height: 100%;
+	width: 100%;
+	background: var(--color-dimgrey);
+}
+#error-box {
+	background: var(--color-whitesmoke);
+}
+#error-message {
+	display: block;
 }
 #banner {
 	height: calc(100vh - 4em);
