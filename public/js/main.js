@@ -378,8 +378,9 @@ elementID("search_btn").addEventListener("click", function() {
 	run_getRequest(requestURL);
 });
 // broken
-elementID("search_input").addEventListener("keyup", function(event) {
+elementID("search_input").addEventListener("keydown", function(event) {
 	if (event.keyCode === 13) {
+		event.preventDefault();
 		let requestURL = createURL(elementValue("search_input"), "string");
 		run_getRequest(requestURL);
 	}
