@@ -19,7 +19,8 @@ function elementMaker(tagname, ID_optional, class_optional) {
 	}
 }
 function errorHandeler(error) {
-	// body...
+	elementID("error-container").style.display = "grid";
+	elementID("error-message").innerText = error;
 }
 // Get request functions and URL constructors
 function createURL(search_input, string_or_ID) {
@@ -84,17 +85,18 @@ function getRequest_Promise(url) {
 							succes(xhttp.responseText);
 							break;
 						case "False":
-							console.log(response_obj.Error);
-							elementID("banner").style.display = "none";
-							elementID("featuredmovies").style.display = "none";
-							elementID("searchresults").style.display = "block";
-							let error = elementMaker("div", "notfound", false);
-							error.innerHTML = "<h2>Sorry</h2>" + "<h3>" + response_obj.Error + " Please try again.</h3>";
-							elementID("searchresults").innerHTML = "";
-							elementID("searchresults").appendChild(error);
+							// console.log(response_obj.Error);
+							// elementID("banner").style.display = "none";
+							// elementID("featuredmovies").style.display = "none";
+							// elementID("searchresults").style.display = "block";
+							// let error = elementMaker("div", "notfound", false);
+							// error.innerHTML = "<h2>Sorry</h2>" + "<h3>" + response_obj.Error + " Please try again.</h3>";
+							// elementID("searchresults").innerHTML = "";
+							// elementID("searchresults").appendChild(error);
+							errorHandeler(response_obj.Error + " Please try again");
 							break;
 						default:
-							console.log("Get request failed.");
+							errorHandeler("Request failed. Please try again");
 					} 
 			} else {
 				fail("Server denied query. Error: " + xhttp.status);
@@ -126,7 +128,7 @@ function search_elements() {
 
 function availability_check(movie_data, poster) {
 	if (poster) {
-		// if poster "n/a" render special gif img.
+		// if poster "N/A" render special gif img.
 		if (movie_data === "N/A") {
 			let sorryposter = "../images/sorry.gif";
 			return sorryposter
@@ -168,6 +170,10 @@ function render_search(topresults_array) {
 						movie_elements[resultsindex][targetelement].alt = "Poster of " + moviedata[0][1] + " not available.";
 					} else {
 						movie_elements[resultsindex][targetelement].alt = "Poster of " + moviedata[0][1];
+						movie_elements[resultsindex][targetelement].onerror = function(event) {
+							this.src = "../images/sorry.gif";
+							this.alt += " not available";
+						};
 					}
 				} else if(datafield[0] == "Title" || datafield[0] == "Year") { 
 					movie_elements[resultsindex][targetelement].innerHTML = datafield[0] + ": " + availability_check(datafield[1], poster_bool);
@@ -261,14 +267,15 @@ function run_getRequest(requestURL) {
 			)
 		},
 		function(err) {
-			console.log(err);
-			elementID("banner").style.display = "none";
-			elementID("featuredmovies").style.display = "none";
-			elementID("searchresults").style.display = "block";
-			let error = elementMaker("div", "notfound", false);
-			error.innerHTML = "<h2>Sorry</h2>" + "<h3>" + err + " Please try again.</h3>";
-			elementID("searchresults").innerHTML = "";
-			elementID("searchresults").appendChild(error);
+			// console.log(err);
+			// elementID("banner").style.display = "none";
+			// elementID("featuredmovies").style.display = "none";
+			// elementID("searchresults").style.display = "block";
+			// let error = elementMaker("div", "notfound", false);
+			// error.innerHTML = "<h2>Sorry</h2>" + "<h3>" + err + " Please try again.</h3>";
+			// elementID("searchresults").innerHTML = "";
+			// elementID("searchresults").appendChild(error);
+			errorHandeler(err);
 		}
 	)
 }
@@ -364,7 +371,11 @@ elementID("search_btn").addEventListener("click", function() {
 elementID("search_input").addEventListener("keydown", function(event) {
 	if (event.keyCode === 13) {
 		event.preventDefault();
-		let requestURL = createURL(elementValue("search_input"), "string");
+		let requestURL = createURL(this.value, "string");
 		run_getRequest(requestURL);
 	}
 });
+// make the error message go away
+elementID("close-err").addEventListener("click", function() {
+	elementID("error-container").style.display = "none";
+})

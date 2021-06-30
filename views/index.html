@@ -18,6 +18,16 @@
 			<div class="header__logo">
 				<a href="http://localhost:3000/"><h1>Movie Buff</h1></a>
 			</div>
+			<div id="error-container">
+				<div id="error-box">
+					<h2 id="error-welcome">Oops! Something went wrong.</h2>
+					<p id="error-message">
+						Test error message: Why this so broken? Fix!
+					</p>
+					<label for="close-err">Close error button</label>
+					<input type="button" name="close-err" id="close-err" value="Ok">
+				</div>
+			</div>
 			<nav class="header__nav pc--nav">
 				<form id="searchbar--container">
 					<label class="nav_label" for=search_input>Search Input</label>
@@ -28,16 +38,7 @@
 			</nav>
 		</div>
 	</header>
-	<div id="error-container">
-		<div id="error-box">
-			<h2>Oops! Something went wrong.</h2>
-			<p id="error-message">
-				Test error message: Why this so broken? Fix!
-			</p>
-			<label for="close-err">Close error button</label>
-			<input type="button" name="close-err" id="close-err" value="Ok">
-		</div>
-	</div>
+	
 	<div id="banner"></div>
 	<main>
 		<article id="featuredmovies">
