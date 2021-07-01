@@ -21,19 +21,21 @@ function elementMaker(tagname, ID_optional, class_optional) {
 function errorHandeler(error) {
 	elementID("error-container").style.display = "grid";
 	elementID("error-message").innerText = error;
+	elementID("close-err").focus();
 }
 // Get request functions and URL constructors
 function createURL(search_input, string_or_ID) {
 	let url;
+	let input = search_input.trim();
 	switch(string_or_ID) {
 		case "string": 
-			url = "http://www.omdbapi.com/?apiKey=6c3a2d45&plot=full&type=movie&s=" + search_input;
+			url = "http://www.omdbapi.com/?apiKey=6c3a2d45&plot=full&type=movie&s=" + input;
 			break;
 		case "ID": 
-			url = "http://www.omdbapi.com/?apiKey=6c3a2d45&plot=full&i=" + search_input;
+			url = "http://www.omdbapi.com/?apiKey=6c3a2d45&plot=full&i=" + input;
 			break;
 		default:
-			console.log("Failed to create URL");
+			errorHandeler("Failed to create URL");
 	}
 	return url;
 }
@@ -63,7 +65,7 @@ function top5_URL_array(res) {
 			return response_obj.Error;
 			break;
 		default:
-			console.log("Get request failed.");
+			errorHandeler("Get request failed.");
 	}
 }
 function getRequest_Promise(url) {
@@ -85,14 +87,6 @@ function getRequest_Promise(url) {
 							succes(xhttp.responseText);
 							break;
 						case "False":
-							// console.log(response_obj.Error);
-							// elementID("banner").style.display = "none";
-							// elementID("featuredmovies").style.display = "none";
-							// elementID("searchresults").style.display = "block";
-							// let error = elementMaker("div", "notfound", false);
-							// error.innerHTML = "<h2>Sorry</h2>" + "<h3>" + response_obj.Error + " Please try again.</h3>";
-							// elementID("searchresults").innerHTML = "";
-							// elementID("searchresults").appendChild(error);
 							errorHandeler(response_obj.Error + " Please try again");
 							break;
 						default:
@@ -128,7 +122,7 @@ function search_elements() {
 
 function availability_check(movie_data, poster) {
 	if (poster) {
-		// if poster "N/A" render special gif img.
+		// if poster "N/A" render sorry.gif img.
 		if (movie_data === "N/A") {
 			let sorryposter = "../images/sorry.gif";
 			return sorryposter
@@ -267,14 +261,6 @@ function run_getRequest(requestURL) {
 			)
 		},
 		function(err) {
-			// console.log(err);
-			// elementID("banner").style.display = "none";
-			// elementID("featuredmovies").style.display = "none";
-			// elementID("searchresults").style.display = "block";
-			// let error = elementMaker("div", "notfound", false);
-			// error.innerHTML = "<h2>Sorry</h2>" + "<h3>" + err + " Please try again.</h3>";
-			// elementID("searchresults").innerHTML = "";
-			// elementID("searchresults").appendChild(error);
 			errorHandeler(err);
 		}
 	)
@@ -378,4 +364,5 @@ elementID("search_input").addEventListener("keydown", function(event) {
 // make the error message go away
 elementID("close-err").addEventListener("click", function() {
 	elementID("error-container").style.display = "none";
+	elementID("search_input").focus();
 })
