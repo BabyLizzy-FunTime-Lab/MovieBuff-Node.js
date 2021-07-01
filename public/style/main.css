@@ -75,7 +75,6 @@ label {
 #error-container {
 	position: fixed;
 	display: none;
-	/*grid-template: 10% 50% auto / auto 60% auto;*/
 	grid-template: .2fr 2fr 1fr / .5fr 2.5fr .5fr;
 	height: 100%;
 	width: 100%;
