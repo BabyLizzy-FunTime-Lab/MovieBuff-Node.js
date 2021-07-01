@@ -13,30 +13,28 @@
 	<script src="js/main.js" async></script>
 </head>
 <body>
-	<header id="top--header">
-		<div class="header--container">
-			<div class="header__logo">
-				<a aria-label="Home link" href="http://localhost:3000/"><h1>Movie Buff</h1></a>
-			</div>
-			<div id="error-container">
-				<div id="error-box">
-					<h2 id="error-welcome">Oops! Something went wrong.</h2>
-					<p id="error-message">
-						Test error message: Why this so broken? Fix!
-					</p>
-					<label for="close-err">Close error button</label>
-					<input type="button" name="close-err" id="close-err" value="Ok">
-				</div>
-			</div>
-			<nav class="header__nav pc--nav">
-				<form id="searchbar--container">
-					<label class="nav_label" for=search_input>Search Input</label>
-					<input type="text" id="search_input" name="search_input" placeholder="Movie Name" autofocus>
-					<label class="nav_label" for="search_btn">Search Button</label>
-					<input type="button" id="search_btn" name="search_btn" value="Search">
-				</form>			
-			</nav>
+	<header id="header--container">
+		<div class="header__logo">
+			<a aria-label="Home link" href="http://localhost:3000/"><h1>Movie Buff</h1></a>
 		</div>
+		<div id="error-container">
+			<div id="error-box">
+				<h2 id="error-welcome">Oops! Something went wrong.</h2>
+				<p id="error-message">
+					Test error message: Why this so broken? Fix!
+				</p>
+				<label for="close-err">Close error button</label>
+				<input type="button" name="close-err" id="close-err" value="Ok">
+			</div>
+		</div>
+		<nav id="header__nav">
+			<form id="searchbar--container">
+				<label for=search_input>Search Input</label>
+				<input type="text" id="search_input" name="search_input" placeholder="Movie Name" autofocus>
+				<label for="search_btn">Search Button</label>
+				<input type="button" id="search_btn" name="search_btn" value="Search">
+			</form>			
+		</nav>
 	</header>
 	<div id="banner"></div>
 	<main>
