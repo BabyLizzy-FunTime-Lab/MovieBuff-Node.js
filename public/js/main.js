@@ -111,7 +111,7 @@ function search_elements() {
 	let actors = elementMaker("div", false, "actors");
 	let awards = elementMaker("div", false, "awards");
 	let plot = elementMaker("div", false, "plot");
-	let info_container = elementMaker("div", false, "info_container");
+	let info_container = elementMaker("div", false, "info_container_search");
 
 	let search_element_array = new Array(
 		poster, title, year, genre, 
@@ -274,7 +274,7 @@ function generate_featuredMovies_elements() {
 	let year = elementMaker("h4", false, "year");
 	let awards = elementMaker("div", false, "awards");
 	let plot = elementMaker("div", false, "plot");
-	let info_container = elementMaker("div", false, "info_container");
+	let info_container = elementMaker("div", false, "info_container_featured");
 	
 	let element_array = new Array(poster, title, year, awards, plot, info_container);
 	return element_array;	 
